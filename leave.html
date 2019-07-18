@@ -1,0 +1,140 @@
+
+    <!--  编辑 -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="doctor">
+            <div class="modal-header" style="padding: 0;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    style="margin-top:20px;margin-right: 20px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="navBox">
+                    <ul class="nav">
+                        <li class="active"><i>请假审核</i></li>
+                        <li><i>已审核</i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="f active" id='first'>
+                    <!-- <div class="list">
+                        <div class="left leave-left">
+                            <p>申请人：婴儿姓名（00023887163）</p>
+                            <p>2018-12-31（周三） 08:00 体能训练课程</p>
+                            <p class="red dot">事假 <span>2018年12月24日 13:27</span></p>
+                        </div>
+                        <div class="left leave-right">
+                            <p class="blue-text">同意</p>
+                            <p class="right red-text">不同意</p>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="left leave-left">
+                            <p>申请人：婴儿姓名（00023887163）</p>
+                            <p>2018-12-31（周三） 08:00 体能训练课程</p>
+                            <p class="lblue dot">病假 <span>2018年12月24日 13:27</span></p>
+                        </div>
+                        <div class="left leave-right">
+                            <p class="blue-text">同意</p>
+                            <p class="right red-text">不同意</p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="css/leave.css">
+    <script type='text/javascript'>
+        function getList(index) {
+            $("#first").empty();
+            if (index == 0) {
+                ajax('/zqfz/teacher/leave-ask/undo-list', {}, function (res) {
+                    if (res.result) {
+                        confirm(res.message);
+                    } else {
+                        var str = '';
+                        if (res.data.list.length != 0) {
+                            $.each(res.data.list, function (i, item) {
+                                str += "<div class='list'><div class='left leave-left'><p>申请人：" + item.baby_name + "（" + item.baby_registid + "）</p>";
+                                var courseTime = $.unixToDate(item.start_time, true);
+                                str += "<p>" + courseTime.substring(0, 10) + "（" + item.week_desc + "） " + courseTime.substring(11, 16) + " " + item.course_name + "</p>";
+                                str += "<p class='dot ";
+                                if (item.type == 0) {
+                                    str += "lblue'>病假   <span>";
+                                } else {
+                                    str += "red'>事假   <span>";
+                                }
+                                var date = $.unixToDate(item.create_time, true);
+                                str += date.substring(0, 4) + "年" + date.substring(5, 7) + "月" + date.substring(8, 10) + "日 " + date.substring(11, 16) + "</span></p></div>";
+                                str += "<div class='left leave-right'><p class='blue-text' onclick='agreen(" + item.id + ")'>同意</p><p class='right red-text' onclick='unagreen(" + item.id + ")'>不同意</p></div></div>";
+                            });
+                        } else {
+                            str += "<p style='text-align:center;margin-top:20px;color:#ccc;'>暂无消息</p>";
+
+                        }
+                        $("#first").append(str);
+                    }
+                });
+            } else {
+                ajax('/zqfz/teacher/leave-ask/check-list', {}, function (res) {
+                    if (res.result) {
+                        confirm(res.message);
+                    } else {
+                        var str = '';
+                        console.log(res.data.list);
+                        if (res.data.list.length) {
+                            $.each(res.data.list, function (i, item) {
+                                str += "<div class='list'><div class='left leave-left'><p>申请人：" + item.baby_name + "（" + item.baby_registid + "）</p>";
+                                var courseTime = $.unixToDate(item.start_time, true);
+                                str += "<p>" + courseTime.substring(0, 10) + "（" + item.week_desc + "）" + courseTime.substring(11, 16) + " " + item.course_name + "</p>";
+                                str += "<p class='dot ";
+                                if (item.type == 0) {
+                                    str += "lblue'>病假<span>   ";
+                                } else {
+                                    str += "red'>事假<span>  ";
+                                }
+                                var date = $.unixToDate(item.create_time, true);
+                                str += date.substring(0, 4) + "年" + date.substring(5, 7) + "月" + date.substring(8, 10) + "日 " + date.substring(11, 16) + "</span></p></div><div class='left leave-right'>";
+                                if (item.status == 1) {
+                                    str += "<p class='right blue-text'>同意</p></div></div>";
+                                } else {
+                                    str += "<p class='right red-text'>不同意</p></div></div>";
+                                }
+                            });
+                        } else {
+                            str += "<p style='text-align:center;margin-top:20px;color:#ccc;'>暂无消息</p>";
+
+                        }
+                        $("#first").append(str);
+                    }
+                });
+            }
+        }
+        function agreen(id) {
+            ajax('/zqfz/teacher/leave-ask/allow', { 'id': id }, function (res) {
+                if (res.result) {
+                    confirm(res.message);
+                } else {
+                    getList(0);
+                }
+            });
+        }
+        function unagreen(id) {
+            ajax('/zqfz/teacher/leave-ask/refuse', { 'id': id }, function (res) {
+                if (res.result) {
+                    confirm(res.message);
+                } else {
+                    getList(0);
+                }
+            });
+
+        }
+        getList(0);
+        $(".navBox .nav li").each(function (index) {//便利对象
+            $(this).click(function () {//点击触发事件
+                $(".navBox .nav li").removeClass("active");//删除当前元素的样式
+                $(".navBox .nav li").eq(index).addClass("active");//添加当前元素的样式
+                console.log(index);
+                getList(index);
+            });
+        });
+    </script>

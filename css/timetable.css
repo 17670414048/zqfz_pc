@@ -1,0 +1,115 @@
+
+.menu-icon-left:before{
+  content:'';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  left: 0;
+   background: url('./../img/left.png') top center no-repeat;
+   background-size: cover;
+}
+.menu-icon-right:before{
+  content:'';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  right: 0;
+   background: url('./../img/right.png') top center no-repeat;
+   background-size: cover;
+}
+#content .second-tap {
+  height: 60px;
+  line-height: 60px;
+  background: rgba(247, 247, 247, 1);
+  border: 1px solid rgba(219, 219, 219, 1);
+}
+
+#content .select-tap .btn-default {
+  color: #333;
+  background-color: #F7F7F7;
+  border-color: #F7F7F7;
+}
+
+.btn.active, .btn:active {
+  -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .125);
+}
+
+#selectRoom .bootstrap-select>.dropdown-toggle {
+  text-align: center;
+}
+#createSelect .bootstrap-select>.dropdown-toggle {
+  width: 50%;
+  text-align: center;
+}
+.icon {
+  width: auto;
+  margin: 0 30px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* ul li {
+    float: left;
+    height: 45px;
+    line-height: 45px;
+  } */
+
+#table {
+  position: relative;
+  /* width: 100%; */
+}
+
+#table .table-bordered {
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+#table .table-bordered>thead>tr>td, #table .table-bordered>thead>tr>th {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 0;
+}
+
+#table .table tr>td {
+  width: 13.5%;
+  height: 90px;
+}
+
+#table .table tr>td.active {
+  background: #CDEEFD;
+}
+
+#table .table tr.center>td {
+  text-align: center;
+  height: 38px;
+  line-height: 38px;
+}
+
+#table .table>tbody>tr>td:first-child, #table .table tr.center>td:first-child {
+  border: 0;
+  text-align: right;
+  padding-top: 0;
+  background: #fff;
+  line-height: 0;
+}
+
+#table .table-info {
+  position: absolute;
+  width: 13%;
+  background: #CDEEFD;
+  padding: 2px 4px;
+}
+
+#table .table-info p {
+  margin-bottom: 2px;
+  font-size: 10px;
+}
+
+#ym {
+  width: 120px;
+}

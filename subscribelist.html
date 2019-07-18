@@ -1,0 +1,178 @@
+
+    <!--  编辑 -->
+<div class="modal-dialog" role="document">
+        <div class="modal-content" id="list">
+            <div class="modal-body" style="padding: 0;">
+                <div class="list-left">
+                    <div style="display:flex;flex-direction: column;height: 100%;">
+                        <div class="navBox" style="flex: 0 0 70px;">
+                            <ul class="nav">
+                                <li class="active">预约列表</li>
+                                <li>未联系</li>
+                                <li>已联系</li>
+                            </ul>
+                        </div>
+                        <div class="list" id="content-list" style="flex: 1;overflow-y: auto;">
+                            <!-- <p class="no-text">暂时没有消息</p> -->
+                            <ul class="active" id="lists">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-right right" id="babyDetail">
+             
+                </div>
+                <input type="hidden" name='numberInfo' id="numberInfo"/>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="css/subscribelist.css">
+    <script type='text/javascript'>
+        var showList = [];
+        var selectIndex = 0;
+        function getList(index) {
+            $("#lists").empty();
+            var str = '';
+            ajax('/zqfz/teacher/appointment/list', { 'status': index }, function (res) {
+                if (res.result) {
+                    confirm(res.message);
+                } else {
+                    var list = res.data.list;
+                    showList = list;
+                    if (list.length > 0) {
+                        for (var i = 0; i < list.length; i++) {
+                            str += "<li class='media index flag" + i + "' onclick='changeInfo(" + i + ")'><div class='media-left ";
+                            if (index == 0) {
+                                str += 'reddot';
+                            }
+                            str += "'><img src='img/noinfo.png' class='media-object' style='width:40px'></div><div class='media-body'>";
+                            str += "<h5 class='media-heading'>" + list[i].name + "<span class='right'>" + $.formatMsgTime(list[i].created_at) + "</span></h5>";
+                            str += "<p>联系电话：" + list[i].mobile + "</p></div></li>";
+                        }
+                    } else {
+                        str += "<p class='no-text'>暂时没有消息</p>";
+                    }
+                    $("#lists").append(str);
+                    $("#lists li:first-child").addClass('click');
+                    if (list[0] == undefined) {
+                        getInfo('');
+                    } else {
+                        getInfo(list[0]);
+                    }
+                }
+            });
+        }
+        getList(selectIndex);
+        function getInfo(info) {
+            $("#babyDetail").empty();
+            var s = '';
+            if (info != '') {
+                s += "<div class='right-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close' style='margin-top: 24px;'><span aria-hidden='true'>&times;</span></button><h4>" + info.name + "</h4></div>";
+                s += "<div class='right-content'><h5>"+$.unixToDate(info.created_at,true)+"</h5><div class='panal'><p>宝宝姓名：" + info.name + "</p><p>出生年月：" + info.birthdate.substring(0, 4) + "年" + info.birthdate.substring(5, 7) + "月" + info.birthdate.substring(8, 10) + "日</p><p>是否早产：";
+                if (info.premature) {
+                    s += '是';
+                } else {
+                    s += '否';
+                }
+                s += "</p><p>早产孕周：" + info.pregnantweeks + "</p>";
+                s += "<p>家庭住址："+info.address+"</p><p>联系电话："+info.mobile+"</p><p>预约课程：" + info.course_name + "</p></div>";
+                s += "<div id='addInfo'> </div>";
+                if (selectIndex == 0) {
+                    s += "<div class='btns'><button type='button' class='btn left blue' onclick='concat("+info.id+")'>已联系</button><button type='button' class='btn right green' onclick='unconcat("+info.id+")'>未联系</button></div>";
+                }
+                if (selectIndex == 1) {
+                    s += "<div class='btns back'><div class='info-form'><input type='text' name='concats' id='concats' placeholder='记录点什么........'></div><div class='info-form'>";
+                    s += "<button type='button' class='btn left blue' onclick='concat("+info.id+")'>已联系</button><button type='button' class='btn right green' onclick='submit("+info.id+")'>发送</button></div></div>";
+    
+                }
+                if (selectIndex == 2) {
+                    s += "<div class='btns back'><div class='info-form'><input type='text' name='concats' id='concats' placeholder='记录点什么........'></div><div class='info-form'>";
+                    s += "<button type='button' class='btn left blue' onclick='success("+info.id+","+selectIndex+")'>预约成功</button><button type='button' class='btn right green'  onclick='submit("+info.id+")'>发送</button></div></div>";
+    
+                }
+                s += "</div>"
+            } else {
+                s += "<div class='right-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close' style='margin-top: 24px;'> <span aria-hidden='true'>&times;</span></button></div>";
+                s += "<img src='img/noinfo.png' class='no-img'/> ";
+            }
+            $("#babyDetail").append(s);
+        }
+        function changeInfo(i) {
+            $("#lists li").siblings("#lists li").removeClass('click');
+            $("#lists li.flag" + i).addClass('click');
+            getInfo(showList[i]);
+        }
+        function concat(id){
+            console.log("改为已联系："+id);
+            ajax('/zqfz/teacher/appointment/contact',{'id':id},function(res){
+                     if(res.result){
+                         confirm(res.message);
+                     }else{
+                        console.log(res.data);
+                        selectIndex = res.data.status;
+                        $(".navBox .nav li").siblings().removeClass('active');
+                        $(".navBox .nav li").eq( res.data.status).addClass('active');
+                        getList(selectIndex);
+                     }
+            });
+        }
+        function unconcat(id){
+            ajax('/zqfz/teacher/appointment/deal',{'id':id},function(res){
+                     if(res.result){
+                         confirm(res.message);
+                     }else{
+                        console.log(res.data);
+                        selectIndex = res.data.status;
+                        $(".navBox .nav li").siblings().removeClass('active');
+                        $(".navBox .nav li").eq( res.data.status).addClass('active');
+                        getList(selectIndex);
+                     }
+            });
+        }
+        function success(id,select){
+            if(confirm("确定预约成功！！")){
+            ajax('/zqfz/teacher/appointment/finish',{'id':id},function(res){
+                     if(res.result){
+                         confirm(res.message);
+                     }else{
+                        console.log(res.data);
+                        selectIndex = select;
+                        $(".navBox .nav li").siblings().removeClass('active');
+                        $(".navBox .nav li").eq( res.select).addClass('active');
+                        getList(selectIndex);
+                     }
+            });
+        }
+        }
+        function submit(id){
+            var text = $('#concats').val();
+            console.log(text);
+            if(text!=''){
+            ajax('/zqfz/teacher/appointment/note',{'id':id,'note':text},function(res){
+                     if(res.result){
+                         confirm(res.message);
+                     }else{
+                        console.log(res.data);
+                        $("#addInfo").append("<h5></h5><div class='panal'><p>"+text+"</p></div>");
+                        $('#concats').val('');
+                     }
+            });
+        }else{
+            confirm("请填写信息");
+        }
+        }
+        $(".navBox .nav li").each(function (index) {//便利对象
+            $(this).click(function () {//点击触发事件
+                $("#lists").empty();
+                $(this).siblings(this).removeClass('active');
+                $(this).addClass('active');
+                selectIndex = index;
+                getList(index);
+    
+            });
+        });
+    </script>
+
+
+
+

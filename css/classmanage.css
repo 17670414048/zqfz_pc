@@ -1,0 +1,160 @@
+@import 'timetable.css';
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn):focus{
+ border: 0;
+}
+.meun-btn {
+    width: 32px;
+    height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    position: relative;
+}
+.meun-btn:before{
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 32px;
+    height: 30px;
+    background: url('./../img/menu.png') top center no-repeat;
+    background-size: cover;
+}
+
+.meun {
+    position: relative;
+}
+
+.meun #table {
+    margin-left: 0;
+}
+
+.meun.taggle #table {
+    margin-left: 25%;
+}
+
+.meun .meunid {
+    position: absolute;
+    top: 0;
+    left: -25%;
+    background: #EEEEEE;
+    padding: 10px;
+    width: 25%;
+    height: 100%;
+}
+
+.meun.taggle .meunid {
+    left: 0;
+    height: 100%;
+}
+
+.meun .meunid .meunid-top {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 2px 4px 0px rgba(21, 69, 118, 0.15);
+    border-radius: 4px;
+    border-left: 4px solid #2F8DEB;
+    padding: 10px 12px;
+}
+
+.meun .meunid .meunid-top p {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    margin-bottom: 8px;
+}
+
+.meun .meunid .meunid-content {
+    margin: 10px auto;
+    height: 82%;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(230, 230, 230, 1);
+    box-shadow: 0px 2px 4px 0px rgba(21, 69, 118, 0.15);
+    border-radius: 4px;
+}
+
+.meun .meunid .meunid-content .meunid-input {
+    padding: 16px 12px;
+    border-bottom: 1px solid #F1F1F1;
+    position: relative;
+}
+
+.meun .meunid .meunid-content .meunid-input input {
+    /* width:240px; */
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid rgba(47, 141, 235, 1);
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 13px;
+    width: 100%;
+}
+
+.meun .meunid .meunid-content .meunid-input input[type=text]::-ms-clear, .meun .meunid .meunid-content .meunid-input input[type=text]::-o-clear {
+    display: none;
+}
+
+.meun .meunid .meunid-content .meunid-input .input-group {
+    position: absolute;
+    top: 55px;
+    left: 12px;
+    background: rgba(247, 247, 247, 1);
+    box-shadow: 0px 2px 4px 0px rgba(21, 69, 118, 0.15);
+    border-radius: 4px;
+    height: auto;
+    width: 92%;
+}
+
+.meun .meunid .meunid-content .meunid-list {
+    padding: 0 12px;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.meun .meunid .meunid-content .meunid-list li,.list-group li{
+    height: 34px;
+    line-height: 34px;
+    border-bottom: 1px solid #E6E6E6;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    clear: both;
+}
+.list-group li{
+    padding: 0 10px;
+}
+.meun .meunid .meunid-content .meunid-list li:hover,.list-group li:hover {
+    color: #1277DC;
+}
+.meun .meunid .meunid-content .meunid-list li p,.list-group li p{
+    display: none;
+    color:rgba(255,255,255,1);  
+    margin-bottom: 0;
+}
+.list-group li:hover p{
+    display: inline-block;
+}
+.meun .meunid .meunid-content .meunid-list li  p span,.list-group li p span{
+    background:rgba(255,81,81,1);
+    border-radius:11px;
+    height:12px;
+    line-height: 12px;
+    font-size:8px;
+    color:rgba(255,255,255,1);
+    padding: 2px 4px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+.meun .meunid .meunid-content .meunid-list li  p span:last-child,.list-group li p span:last-child{
+    height:21px;
+    border:1px solid rgba(255,81,81,1);
+    border-radius:11px;
+    background: #fff;
+    color: rgba(255,81,81,1);
+}
+ul.list-group{
+    margin-bottom: 0;
+
+}
+ul.list-group .list-group-item {
+    border: 0;
+    border-bottom: 2px solid #ddd;
+}

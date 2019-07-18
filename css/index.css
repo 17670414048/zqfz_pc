@@ -1,0 +1,92 @@
+
+#content .index-list h4 {
+    height: 19px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 20px;
+}
+
+#content .index-list {
+    width: 100%;
+    padding: 0 10%;
+    min-width: 1200px;
+}
+
+#content .index-list ul li {
+    position: relative;
+    margin: 25px 10px 0px 0;
+    padding-top: 14px;
+    width: 32%;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 6px 12px 0px rgba(245, 245, 245, 1);
+    border-radius: 5px;
+    display: inline-block;
+    border: 0.5px solid transparent;
+}
+
+#content .index-list ul li:hover {
+    background: rgba(255, 255, 255, 1);
+    border: 0.5px solid #69A5FF;
+    box-shadow: 0px 6px 12px 0px rgba(245, 245, 245, 1);
+    border-radius: 5px;
+}
+
+#content .index-list ul li h5 {
+    height: 19px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(51, 51, 51, 1);
+    line-height: 18px;
+    padding-left: 17px;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+#content .index-list ul li h5:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 20px;
+    background: rgba(105, 165, 255, 1);
+    border-radius: 5px;
+}
+
+#content .index-list ul li p {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    line-height: 20px;
+    padding: 0 17px;
+    height: 100px;
+}
+
+#content .index-list ul li p:last-child {
+    margin-top: 20px;
+    height: 42px;
+    line-height: 42px;
+    background: rgba(105, 165, 255, 1);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0;
+    padding-left: 10px;
+}
+
+#content .index-list ul li p a.a-href {
+    height: 18px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    line-height: 20px;
+    padding: 0 10px;
+}
+
+#content .index-list ul li p a.a-href:last-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#content .index-list ul li p a.a-href:first-child {
+    border-left: 0px;
+}

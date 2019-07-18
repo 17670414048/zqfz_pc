@@ -1,0 +1,185 @@
+    .navBox {
+        height: 70px;
+        width: 100%;
+        background-color: #fff;
+        border-bottom: 1px solid #ECECEC;
+    }
+
+    .navBox .nav {
+        height: 70px;
+    }
+
+    .navBox .nav li {
+        height: 70px;
+        line-height: 70px;
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .navBox .nav>li>a {
+        text-align: center;
+        height: 70px;
+        line-height: 70px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #666;
+    }
+
+    .navBox .nav>li>a:hover {
+        color: rgba(18, 119, 220, 1);
+    }
+
+    .navBox .nav>li>a {
+        padding: 0;
+    }
+
+    .navBox .nav .active {
+        height: 70px;
+        line-height: 70px;
+        font-size: 15px;
+        color: rgba(18, 119, 220, 1);
+        background: rgba(105, 165, 255, 0.1);
+    }
+
+    .navBox .nav .active a {
+        color: #1277DC;
+    }
+
+    #list {
+        width: 100%;
+    }
+
+    #list .list-left {
+        width: 35%;
+        display: inline-block;
+        border-right: 1px solid rgba(236, 236, 236, 1);
+        height: 600px;
+        overflow-y: auto;
+    }
+
+    #list .list-right {
+        width: 65%;
+        display: inline-block;
+        height: 600px;
+        position: relative;
+    }
+
+    #list .list-right .right-header {
+        height: 70px;
+        line-height: 70px;
+        padding: 0 20px;
+        border-bottom: 1px solid #ECECEC;
+    }
+
+    #list .list-right .right-header h4 {
+        margin: 0;
+        height: 70px;
+        line-height: 70px;
+        font-size: 20px;
+        color: rgba(128, 128, 128, 1);
+    }
+
+    #list .list-right .right-content {
+        padding: 10px 16px 20px;
+        height: 535px;
+        position: relative;
+    }
+
+    #list .list-right .right-content h5 {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(77, 77, 77, 1);
+        line-height: 16px;
+        text-align: center;
+        margin: 5px auto 0;
+    }
+
+    #list .list-right .right-content .panal {
+        background: rgba(249, 249, 249, 1);
+        padding: 10px 18px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    #list .list-right .right-content .panal p {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(77, 77, 77, 1);
+        line-height: 27px;
+        margin-bottom: 0;
+    }
+
+    #list .list-right .right-content .btns {
+        position: absolute;
+        bottom: 0;
+        padding: 20px 18px 15px;
+        width: 420px;
+    }
+
+    #list .list-right .right-content .btns .info-form {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(181, 181, 181, 1);
+        border-radius: 2px;
+        position: relative;
+        display: table;
+        width: 100%;
+        padding: 5px 13px;
+    }
+
+    #list .list-right .right-content .btns .info-form:first-child {
+        border-bottom: 0;
+    }
+
+    #list .list-right .right-content .btns .info-form input {
+        height: 34px;
+        line-height: 34px;
+        width: 100%;
+    }
+
+    #list .list-right .right-content .btns.back {
+        background: #ECECEC;
+    }
+
+    #content-list ul {
+        display: none;
+    }
+
+    #content-list .active {
+        display: block;
+    }
+
+    #content-list .active .media {
+        padding: 15px 10px;
+        border-bottom: 1px solid #ECECEC;
+        margin-top: 0;
+    }
+
+    #content-list .active .media .media-left img {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(168, 189, 181, 1);
+        border-radius: 2px;
+    }
+
+    #content-list .active .media .reddot {
+        position: relative;
+    }
+
+    #content-list .active .media .media-body p {
+        margin-bottom: 0;
+    }
+
+    #content-list .active .media .media-body span {
+        font-size: 13px;
+    }
+
+    #content-list .active .media .media-body p, #content-list .active .media .media-body h5 {
+        color: #808080;
+        font-size: 12px;
+    }
+
+    #content-list .active .media.click {
+        background: #F9F9F9;
+    }

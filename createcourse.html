@@ -1,0 +1,565 @@
+<!--  编辑 -->
+<div class="modal-dialog" role="document">
+
+    <div class="modal-content" id="student">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="doctorInfoModalLabel">创建课时</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form">
+                <div class="form-group">
+                    <label>课程</label>
+                    <!-- 课程参数 -->
+                    <input type="hidden" id="courseId" class="form-control" value="">
+                    <select id="courseSelect" class="form-control selectpicker" icon-base="glyphicon"
+                        tick-icon="glyphicon-ok">
+                    </select>
+                </div>
+                <div class="form-group" style="border-bottom: 1px solid #F7F7F7;">
+                    <div class="timeduan">
+                        <img src="./img/cal3.png"
+                            style="width: 24px;height: 24px;margin-right:2px;margin-bottom:4px;" />
+                        <p class="timedate" id='datetimepickers1'>
+                            <input type="hidden" name="date1" id="d1" value="" />
+                            <span id='date1'> </span></p>&nbsp;-&nbsp;
+                        <p class="timedate" id='datetimepickers2'>
+                            <input type="hidden" name="date2" id="d2" value="" class="form-control" />
+                            <span id='date2'></span></p>
+                    </div>
+
+                    <div class="repeate">
+                        <div class="dropdown-toggle" id="dropdownMenu">
+                            <img src="./img/time2.png"
+                                style="width: 16px;height: 16px;display:inline-block;margin-right: 8px;" />
+                            <span id="repeatText">每天重复</span>
+                        </div>
+                        <!--重复规则-->
+                        <div id='menu' class="repeat dropdown-menu" style="padding: 15px;">
+                            <table>
+                                <tr>
+                                    <td style="width: 50px;padding-bottom: 20px;line-height: 28px;">重复:</td>
+                                    <td style="padding-bottom: 20px">
+                                        <select name="" id="repeatselect0" class="form-control"
+                                            style=" border: solid 1px #f7f7f7;padding-left: 10px;width: 117px;">
+                                            <option value="1">不重复</option>
+                                            <option value="2">每天重复</option>
+                                            <option value="3">每周重复</option>
+                                            <option value="4">工作日重复</option>
+                                            <option value="0">自定义重复</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-bottom: 20px;line-height: 28px">间隔:</td>
+                                    <td style="padding-bottom: 20px">
+                                        <p>
+                                            <select name="" id="repeatselect" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                            <span class="we">周</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-bottom: 20px">
+                                        <table>
+                                            <tr id="arrweeks">
+                                                <td class="no_check" id="black" value="0">日</td>
+                                                <td class="no_check" id="black" value="1">一</td>
+                                                <td class="no_check" id="black" value="2">二</td>
+                                                <td class="no_check" id="black" value="3">三</td>
+                                                <td class="no_check" id="black" value="4">四</td>
+                                                <td class="no_check" id="black" value="5">五</td>
+                                                <td class="no_check" id="black" value="6">六</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-bottom: 15px" id="showRepeat"></td>
+                                </tr>
+                            </table>
+                            <div id="save-btn" style="background: #DBDBDB;color: #fff;width: 60px;float: right;"
+                                class="btn btn-block">确定</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>上课医生</label>
+                    <input type="hidden" id="doctorId" class="form-control" value="">
+                    <select id="doctorSelect" class="form-control selectpicker" icon-base="glyphicon"
+                        tick-icon="glyphicon-ok">
+                    </select>
+                </div>
+                <!-- <div class="form-group">
+                    <label>课时换算（1节课=）</label>
+           
+                    <select class="form-control selectpicker" icon-base="glyphicon" tick-icon="glyphicon-ok">
+                        <option selected>1</option>
+                        <option>1.5</option>
+                        <option>2</option>
+                    </select>
+                </div> -->
+                <div class="form-group">
+                    <label>上课学员</label>
+                    <div class="meunid-input">
+                        <input class="form-control" type="text" name="babyId" id="input" placeholder="请输入登记号或姓名"
+                            oninput="template_choise(this)" />
+                        <div class="input-group input-text" id="text-list"></div>
+                    </div>
+                </div>
+                <div class="form-group s-list">
+                    <ul id="baby-lists">
+                        <!-- <li class="li-left">0001147092&nbsp; &nbsp;&nbsp;&nbsp;孙杨之子<span onclick="del()"
+                                class="del right">×</i></li>
+                        <li>0001147092&nbsp; &nbsp;&nbsp;&nbsp;孙杨之子<span onclick="del()" class="del right">×</span></li>
+                        <li class="li-left">0001147092&nbsp; &nbsp;&nbsp;&nbsp;孙杨之子<span onclick="del()"
+                                class="del right">×</span></li>
+                        <li>0001147092&nbsp; &nbsp;&nbsp;&nbsp;孙杨之子<span onclick="del()" class="del right">×</span></li> -->
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn right modal-btn blue" id="add_btn" onclick="add_btn()">保存</button>
+        </div>
+        <input type="hidden" id="repeattype" value="">
+        <input type="hidden" id="gapweeknu" value="">
+        <input type="hidden" id="gapweek" value="">
+        <input type="hidden" id="day" value="">
+    </div>
+</div>
+<!-- <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/bootstrap-datetimepicker.zh-CN.js"></script> -->
+<link href="css/createcourse.css" rel="stylesheet">
+<style>
+    .repeat {
+        position: absolute;
+        width: 220px;
+        margin-left: 50%;
+        background-color: #ffffff;
+        border-radius: 4px;
+        border: 1px #ccc solid;
+        display: none;
+        margin-top: 14px;
+        z-index: 22;
+    }
+
+    #menu {
+        display: none;
+    }
+
+    #repeatselect {
+        background-color: #fff;
+        border: solid 1px #f7f7f7;
+        padding-left: 10px;
+        width: 100px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    #arrweeks {
+        line-height: 24px;
+    }
+
+    #arrweeks td {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #DBDBDB;
+        text-align: center;
+    }
+
+    .no_check {
+        background: #fff;
+        color: #000;
+    }
+
+    .check {
+        background: rgb(50, 155, 255);
+        color: #fff;
+    } 
+    
+</style>
+
+<script type="text/javascript">
+    $('#courseSelect').on('changed.bs.select', function (e) {
+        $('input[name="courseId"]').val($('#courseSelect').selectpicker('val'));
+        console.log($('input[name="courseId"]').val());
+    });
+    //默认的重复选项
+    $("#repeatText").text($("#repeatselect0  option:selected").text());
+    //改变重复选项的事件
+    $('#repeatselect0').on("change", function () {
+        $('#save-btn').css({background: "#339AFF"});
+        $("#repeatText").text($(this).find(':selected').text());
+        //自定义选项的展示
+        if ($(this).find(':selected').val() == 0) {
+            $('#menu table tr').show();
+        } else {
+            $('#menu table tr:first').show().siblings('tr').hide();
+        }
+    })
+    //重复框的控制
+    $("#dropdownMenu").on('click', function () {
+        $('.repeat').show();
+    });
+    //默认显示
+    $("#showRepeat").html("<span>每" + $("#repeatselect option:selected").text() + "周</span>");
+    //重复间隔
+
+    // $('#repeatselect').on("change", function(){
+    //     $("#arrweeks td").attr("class", "no_check");
+    //       $("#showRepeat").html("<span>每"+$(this).find(':selected').text()+"周</span>");
+    //       //自定义选项的展示
+    //       if($(this).find(':selected').val()==0){
+    //         $('#menu table tr').show();
+    //       }
+    // })
+    //自定义周期的控制
+
+    /*改变重复规则事件*/
+    $('#repeatselect').on('change', function () {
+        var repeatselect = $("#repeatselect option:selected").val();
+        $.each($("#arrweeks td"), function (i, val) {
+            $(val).attr("class", "no_check");
+        })
+        $("#showRepeat").text('每' + repeatselect + '周');
+    });
+    /*点击选择周几重复*/
+    $("#arrweeks td").on('click', function () {
+        var repeatselect = $("#repeatselect option:selected").val();
+        if ($(this).hasClass('no_check')) {
+
+            $(this).attr("class", "check ");
+        } else {
+            $(this).attr("class", "no_check");
+        }
+        var repeattd = $('.check');
+        console.log(repeattd.length + "===");
+        $('#save-btn').css({ background: "#339AFF" });
+        if (repeattd.length != 0) {
+            var gapweek = '';
+            repeattd.each(function (k, v) {
+                gapweek += ',' + $(v).attr('value');
+            })
+            var gapweek = gapweek.substr(1);
+            $('#gapweek').val(gapweek);
+        }
+        var gapweek = $(".check").text();
+        if (gapweek == '') {
+            $("#showRepeat").text('每' + repeatselect + '周');
+        } else {
+            $("#showRepeat").text('每' + repeatselect + '周' + ("\t") + ("\t") + ("\t") + '周' + gapweek + (",") + '重复');
+        }
+    })
+    // $("#showRepeat").text('每' + repeatselect + '周');
+    // $('.check').attr('class', 'no_check');
+    /*重复确定*/
+    $('#save-btn').on('click', function () {
+        $("#add-btn").css({ background: "rgba(51, 154, 255)" });
+        $('.repeat').hide();
+        $("#save-btn").css({ background: "#DBDBDB" });
+        /*获取值*/
+        var repeatselect0 = $('#repeatselect0').val();
+        if (repeatselect0 == '0') {
+            var repeatselect = $('#repeatselect').val();
+            $('#gapweeknu').val(repeatselect);
+        }
+        if (repeatselect0 == '0') {
+            var repeattd = $('.check');
+            if (repeattd.length == 0) {
+                $('.repeat').show();
+                $('.repeat').children('table').children('tbody').children('tr:gt(0)').show();
+                alert('自定义周几重复不能为空');
+            }
+        }
+        $('#repeattype').val(repeatselect0);
+        console.log($('#repeattype').val() + "--" + $('#gapweek ').val() + '---' + $('#gapweeknu').val());
+
+    });
+    //学员人数
+    var baby_ids = [];
+    function showtime(times) {
+        var date = $.unixToDate(times / 1000, true);
+        var time = date.substring(11, 16);
+        var week = (new Date(times)).getDay();
+        $('#day').val(week);
+        return $.week(week) + ' ' + time;
+    }
+    $(function () {
+        $('#menu table tr:first').show().siblings('tr').hide();
+        var date = new Date();
+        $('input[name="date1"]').val(date.getTime());
+        $('#date1').text(showtime(date.getTime()));
+        /*日期插件*/
+        $('#datetimepickers1').daterangepicker(
+            {
+                "singleDatePicker": true,
+                "timePicker": true,
+                "timePicker24Hour": true,
+                "autoApply": true,
+                minDate: new Date(),    //最小时间
+                "locale": {
+                    "direction": "ltr",
+                    "format": "YYYY-MM-DD HH:mm",
+                    "separator": " - ",
+                    "applyLabel": "确定",
+                    "fromLabel": "From",
+                    "toLabel": "To",
+                    "customRangeLabel": "Custom",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 0
+                },
+            }, function (start, end, label) {
+                var starttime = start.format('YYYY-MM-DD HH:mm');
+                var date = new Date(starttime.replace(/-/g, "/")).getTime();
+                var endtime = (date.valueOf() + 60 * 60 * 1000) / 1000;
+                var end = new Date(endtime * 1000);
+                var endNew = $.unixToDate(endtime);
+                var new_end = endNew.substr(0, 16);
+                // $('.demo-date').val(starttime);
+                // $('.demo-dateTwo').val(new_end);
+                $('input[name="date1"]').val(date);
+                $('#date1').text(showtime(date));
+                $('input[name="date2"]').val(endtime * 1000);
+                $('#date2').text(showtime(endtime * 1000));
+                $('#add-btn').css({ background: "#339AFF" });
+                $('#datetimepickers2').data('daterangepicker').setStartDate(end);
+                $('#datetimepickers2').data('daterangepicker').setEndDate(end);
+            });
+        var date2 = date.getTime() + 60 * 60 * 1000;
+        $('input[name="date2"]').val(date2);
+        $('#date2').text(showtime(date2));
+        $('#datetimepickers2').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker": true,
+            "timePicker24Hour": true,
+            "autoApply": true,
+            minDate: new Date(),    //最小时间
+            "minDate": new Date(),    //最小时间
+            "locale": {
+                "direction": "ltr",
+                "format": "YYYY-MM-DD HH:mm",
+                "separator": " - ",
+                "applyLabel": "确定",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                "firstDay": 0
+            },
+        }, function (start, end, label) {
+            var starttime = start.format('YYYY-MM-DD HH:mm');
+            var date = new Date(starttime.replace(/-/g, "/")).getTime();
+            $('#add-btn').css({ background: "#339AFF" });
+
+            if ($('input[name="date1"]').val() >= date) {
+                confirm('结束时间不能小于开始时间');
+                return false;
+            } else if (date - $('input[name="date1"]').val() > 60 * 60 * 1000) {
+                confirm('一节课不能超过一个小时');
+                return false;
+            } else {
+                $('input[name="date2"]').val(date);
+                $('#date2').text(showtime(date));
+            }
+        });
+
+    });
+    function template_choise(obj) {
+        // 判断输入框内容为空的时候
+        if ($(obj).val().length == 0) {
+            console.log($(obj).val().length)
+            $(".input-text").css("display", "none")
+            var selected_keywords = $(".input-text")
+            selected_keywords.empty();
+        }
+        else {
+            console.log($(obj).val().length)
+            $(".input-text").css("display", "block")
+            //获取setinterval的索引
+            var index = setInterval(function () {
+                $(".input-text").empty();
+                $(".list-group").empty();
+                // 获取输入框中的搜索关键字
+                var serach_keywords = $(obj).val()
+                console.log(serach_keywords)
+                var list_template = "<ul class='list-group'></ul>"
+                //执行模糊查询功能，延迟200ms
+                ajax('/zqfz/teacher/baby/list', { 'key': serach_keywords }, function (res) {
+                    console.log(res.data.list);
+                    $.each(res.data.list, function (i, data) {
+                        var h = "<li class='list-group-item baby-list li-left' onclick='add(" + data.id + ",\"" + data.registid + "\",\"" + data.name + "\")'>" + data.registid + "&nbsp;&nbsp;" + data.name + "<span class='del right blues'>+</span></li>"
+                        //鼠标悬浮出现添加
+                        $(".list-group").append(h).children(".list-group-item").on("mouseenter", function () {
+                            $(this).find(".list-group-item>span").show();
+                        }).on("mouseleave", function () {
+                            $(this).find(".list-group-item>span").hide();
+                        });
+                    });
+                });
+                $(".input-text").append(list_template);
+
+                clearInterval(index);
+                // 延时200ms
+            }, 200)
+
+        }
+    }
+    function add(babyId, registid, name) {
+        console.log(baby_ids);
+        console.log(registid);
+        console.log($.inArray(babyId, baby_ids));
+        if ($.inArray(babyId, baby_ids) > -1) {
+            confirm('已添加');
+        } else {
+            var html = "<li class='li-left'>" + registid + "&nbsp; &nbsp;&nbsp;&nbsp;" + name + "<span class='del right'  onclick='del(" + babyId + ")'>×</span></li>";
+            $('#baby-lists').append(html).children(".li-left").on("mouseenter", function () {
+                $(this).find(".li-left>span").show();
+            }).on("mouseleave", function () {
+                $(this).find(".li-left>span").hide();
+            });
+            baby_ids.push(babyId);
+            $("#input").val('');
+            $(".input-text").empty();
+            $(".list-group").empty();
+        }
+    }
+    function del(babyId) {
+        for (var i = 0; i < baby_ids.length; i++) {
+            if (baby_ids[i] == babyId) {
+                $('#baby-lists').find('li').eq(i).remove();
+            }
+        }
+    }
+    /*添加课程*/
+    function add_btn() {
+        console.log($("#repeattype").val());
+        $("#save-btn").css({ background: "#DBDBDB" });
+        $('#add-btn').css({ background: "rgb(219, 219, 219)" });
+        var repeatselect0 = $('#repeatselect0 option:selected').val();
+        if (repeatselect0 != '1') {
+            $("#repeatselect0 option[value='1']").attr("selected", true);
+        }
+        var repeattype = $("#repeattype").val();
+        //不重复
+        if (repeattype == '1') {
+            $('#gapweeknu').attr("value", '0');
+            $('#gapweek').attr("value", '0');
+        }
+        //每天重复
+        if (repeattype == '2') {
+            $('#gapweeknu').attr("value", '1');
+            $('#gapweek').attr("value", '1,2,3,4,5,6,7');
+        }
+        //每周重复
+        if (repeattype == '3') {
+            $('#gapweeknu').attr("value", '1');
+            if ($("#day").val == 0) {
+                $('#gapweek').attr("value", '7');
+            } else {
+                $('#gapweek').attr("value", $("#day").val());
+            }
+        }
+        //工作日重复
+        if (repeattype == '4') {
+            $('#gapweeknu').attr("value", '1');
+            $('#gapweek').attr("value", "1,2,3,4,5");
+        }
+        //自定义重复
+        // if (repeattype != '0') {
+        //     $('#gapweeknu').attr("value", '');
+        //     $('#gapweek').attr("value", '');
+        // }
+        var courseId = $('#courseSelect').selectpicker('val');
+        console.log(courseId);
+        var doctorId = $('#doctorSelect').selectpicker('val');
+        var babyId = baby_ids.join(",");
+        var starttime = $('#d1').val() / 1000;
+        var endtime = $('#d2').val() / 1000;
+        var repeattype = $("#repeattype").val();
+        var gapweeknu = $("#gapweeknu").val();
+        var news = $("#gapweek").val();
+        var index = news.indexOf('0');
+        if (index >= 0) {
+            var re = new RegExp("0", "g");
+            news = news.replace(re, "7");
+        }
+        console.log(index + "--" + news);
+        var gapweek = news;
+
+        /*判断添加课程时间范围*/
+        console.log(starttime + "++" + endtime);
+        var s = $.unixToDate(starttime, true);
+        var e = $.unixToDate(endtime, true);
+        var start = s.substr(0, 10);
+        var end = e.substr(0, 10);
+        if (start != end) {
+            alert('请选择同一天日期');
+            return false;
+        }
+        var stime = s.substr(11);
+        var etime = e.substr(11);
+        var star = '08:00';
+        var stop = '18:00';
+        var noon = '12:00';
+        var noonnu = '14:00';
+        if ((stime < star) || (stime > stop) || (etime < star) || (etime > stop)) {
+            $('#myModal').modal('show');
+            alert('课程时间范围请选择8点到18点');
+            return false;
+        }
+        if (stime > etime) {
+            $('#myModal').modal('show');
+            alert('课程开始时间不能大于结束时间');
+            return false;
+        }
+        if (stime == etime) {
+            $('#myModal').modal('show');
+            alert('课程开始时间不能等于结束时间');
+            return false;
+        }
+        if ((stime >= noon && stime < noonnu) || (etime > noon && etime <= noonnu)) {
+            $('#myModal').modal('show');
+            alert('中午12点到14点是休息时间');
+            return false;
+        }
+        var starttime2 = s.substr(0, 10);
+        var news = $.unixToDate((new Date()).getTime() / 1000, true);
+        var newDate = news.substr(0, 10);
+        if (starttime2 <= newDate) {
+            $('#myModal').modal('show');
+            alert('只能创建' + newDate + '以后的课程哦！');
+            return false;
+        }
+        s = s.substr(0, 16);
+        e = e.substr(0, 16);
+        console.log(courseId + "-" + doctorId + '-' + gapweeknu + '-' + gapweek + '-' + babyId);
+        console.log(babyId);
+        /*提交数据*/
+        ajax('/zqfz/teacher/schedule/add', { 'course_id': courseId, 'teacher_id': doctorId, 'start_time': starttime, 'end_time': endtime, 'repeat_week': gapweeknu, 'repeat_weekday': gapweek, 'baby_ids': babyId }, function (res) {
+            console.log(res.result);
+            console.log(res.data);
+            if (res.result) {
+                confirm(res.message);
+            } else {
+
+                $("#add_btn").attr('data-dismiss', 'modal');
+                $('#modal_edit_id').modal('hide')
+                time('');
+            }
+        });
+    }
+</script>

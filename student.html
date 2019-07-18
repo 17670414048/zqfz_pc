@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>学员管理</title>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <link rel="stylesheet" type="text/css"
+    href="css/bootstrap.min.css">
+  <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/head.css">
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/bootstrap-datetimepicker.min.js"></script>
+  <script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="common/common.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="css/student.css">
+  <link rel="stylesheet" type="text/css" href="css/paginator.css">
+  <style>
+    .datetimepicker {
+      margin-top: 20px;
+    }
+    .form-control:focus + .btn{
+    border-color: #339AFF;
+    background: #339AFF;
+    color: #fff;
+
+}
+.btn.seacher{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  color: #999999;
+  background: #E2E2E2;
+}
+  </style>
+</head>
+
+<body style="background: #FFF;">
+  <nav class="navbar" role="navigation" id="topnav">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav" id="firstnav">
+        <li class="js-list">
+          <a href="index.html">首页</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="timetable.html">排课管理</a>
+        </li>
+        <li class="js-list">
+          <a href="classmanage.html">上课人员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="datastatis.html">数据统计</a>
+        </li>
+        <li class="js-list">
+          <a href="course.html">课程管理</a>
+        </li>
+        <li class="js-list">
+          <a href="student.html">学员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="doctor.html">医生管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="classroom.html">教室管理</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <img id="head-img" class="top-img" src="img/tmanager.png" title="个人信息"
+            onclick="popModal('#modal_id','edit.html')"><span id="username"
+            onclick="popModal('#modal_id','edit.html')">admin</span>
+        </li>
+        <li style="padding-left:12px;">
+          <img class="top-img" src="img/info.png" onclick="popModal('#modal_id','subscribelist.html')"
+            title="预约列表"><span class="badge" id="flags">4</span>
+          <img class="top-img" src="img/shenhe.png" onclick="popModal('#modal_id','leave.html')" title="请假审核">
+          <img class="top-img" src="img/tuichu.png" onclick="quit()" title="开关">
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row-fluid" id="content">
+    <div class="row-left left">
+      <form class="form" id="form">
+        <h4>添加学员</h4>
+        <div class="form-group">
+          <label>登记号</label>
+          <input type="text" name="registor1" class="form-control" placeholder="请填写登记号">
+        </div>
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" name="name1" class="form-control" placeholder="请填写姓名">
+        </div>
+        <div class="form-group">
+          <label>手机号码</label>
+          <input type="text" name="phone1" class="form-control" placeholder="请填写手机号码">
+        </div>
+        <div class="form-group">
+          <label>性别</label>
+          <select id='sex1' class="form-control" style="color:#999;">
+            <option value="">请选择性别</option>
+            <option value="0">女</option>
+            <option value="1">男</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>出生日期</label>
+          <!-- <div class='input-group date'> -->
+            <input id="datetime1" type="text" name="date1" class="form-control datetimepicker1" placeholder="请选择出生日期" readonly="readonly">
+            <!-- <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div> -->
+        </div>
+        <div class="form-group">
+          <label>出生孕周</label>
+          <div class="input-group">
+            <input type="text" name="week1-1" class="form-control" id="exampleInputAmount" placeholder="33">
+            <div class="input-group-addon">周</div>
+            <div class="input-group-addon" style="padding: 6px 9px;background:#fff;border: 0;font-size: 20px;">+</div>
+            <input type="text" name="week1-2" class="form-control" id="exampleInputAmount" placeholder="3">
+            <div class="input-group-addon">天</div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-blue st-btn" onclick="add()">保存</button>
+      </form>
+    </div>
+    <div class="row-right left">
+      <div class="left-top form">
+          <div class="form-group form-search">
+              <!-- <div class="input-group">
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="输入登记号或姓名">
+                <div class="input-group-addon">搜  索</div>
+              </div> -->
+                  <div class="input-group input-append" style="background:rgba(255,255,255,1);border:1px solid rgba(226,226,226,1);border-radius:4px;width:300px;display: flex;">
+                    <input type="text" name="key" class="form-control span2 search-query" id="key" placeholder="输入登记号或姓名">
+                    <button type="submit" class="btn seacher" onclick="search()">搜  索</button>
+                  </div>
+            </div>
+      </div>
+      <table class="table" striped="true">
+        <thead>
+          <tr style="background:#F7F7F7;">
+            <td align="center">登记号</td>
+            <td align="center">姓名</td>
+            <td align="center">性别</td>
+            <td align="center">出生日期</td>
+            <td align="center">电话号码</td>
+            <td align="center">年龄</td>
+            <td align="center">出生孕周</td>
+            <td align="center">已上课时</td>
+            <td align="center">未上课时</td>
+            <td align="center" colspan="2">操作</td>
+          </tr>
+        </thead>
+        <tbody id="htmlDiv">
+        </tbody>
+      </table>
+      <div class="page-bottom">
+        <ul id="pageButton"></ul>
+        <span id="total"></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal_id" role="dialog" style="z-index: 99999;"></div>
+  <div class="modal fade" id="modal_edit_id" role="dialog" style="z-index: 99999;"></div>
+  <script src="common/change.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      var flag = $.getUrlParam('add');
+      if (flag != '' && flag == 2) {
+        $("input[name='registor1']").focus();
+      }
+    }
+    $('#firstnav').find('a[href="student.html"]').closest('li').addClass('active');
+    $(function () {
+      $('#datetime1').datetimepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left",
+        language: 'zh-CN',
+        minView: "month",
+        todayHighlight: true,
+        // startDate : "2013-02-14 10:00", 
+        // minuteStep : 1,
+      });
+    });
+    var keys ='';
+    // 初始化页面
+    getPageOfMemo(1,keys);
+    // 分页函数
+    function getPageOfMemo(page,keys) {
+
+      // 获取请求参数(input里面的时间人员参数可忽略注释)
+      //  var beginTime = $("#signDate").val();
+      //  var endTime = $("#signDate1").val();
+      //  var organId = $("#organId").val();
+      //  var personName = $("#personName").val();
+      var pageSize = 10;
+      ajax("/zqfz/teacher/baby/list", {
+        "page_num": page, // 初始页
+        "page_size": pageSize, //每页多少条
+        "key": keys
+      }, function (res) {
+        var data = res.data;
+        var totalPages;
+        if (data.list != null) {
+          if (data.total % pageSize == 0) {
+
+            totalPages = data.total / pageSize;
+          } else {
+            totalPages = data.total / pageSize + 1;
+          }
+          $("#total").html("每页<i>" + pageSize + "</i>条/共<i>" + data.total + "</i>条数据");
+          var htm = "";
+          $.each(data.list, function (i, item) {
+            htm += '<tr';
+            if ((i + 1) % 2 == 0) {
+              htm += ' style="background:#FCFCFC;"';
+            }
+            htm += '><td align="center">' + item.registid + '</td>';
+            htm += '<td align="center">' + item.name + '</td>';
+            htm += '<td align="center">' + item.gender_desc + '</td>';
+            htm += '<td align="center">' + item.birth_str + '</td>';
+            htm += '<td align="center">' + item.mobile + '</td>';
+            htm += '<td align="center">' + item.age_desc + '</td>';
+            htm += '<td align="center">' + item.week + '</td>';
+            htm += '<td align="center">' + item.use_time + '</td>';
+            htm += '<td align="center">' + item.time + '</td>';
+            htm += '<td align="center" onclick="edit(' + item.id + ',' + page + ')"><span class="option">编辑</span></td>';
+            htm += '<td align="center" onclick="delet(' + item.id + ',' + page + ')"><span class="option del">删除</span></td>';
+            htm += '</tr>';
+
+          });
+          $('#htmlDiv').html(htm);
+          var element = $('#pageButton');
+          var options = {
+            bootstrapMajorVersion: 3,
+            currentPage: page, // 当前页数
+            numberOfPages: 5, // 显示按钮的数量
+            totalPages: totalPages, // 总页数
+            itemTexts: function (type, page, current) {
+              switch (type) {
+                case "first":
+                  return "首页";
+                case "prev":
+                  return "上一页";
+                case "next":
+                  return "下一页";
+                case "last":
+                  return "末页";
+                case "page":
+                  return page;
+              }
+            },
+            // 点击事件，用于通过Ajax来刷新整个list列表
+            onPageClicked: function (event, originalEvent, type, page) {
+              getPageOfMemo(page,keys);
+            }
+          };
+          element.bootstrapPaginator(options);
+        }
+      }
+      );
+    };
+    function search(){
+     var key = $("input[name='key']").val();
+      $('#htmlDiv').html('');
+      getPageOfMemo(1,key);
+    }
+  </script>
+</body>
+<script type="text/javascript" charset="utf-8">
+  //添加
+  function add() {
+    var registor = $("input[name='registor1']").val();
+    var name = $("input[name='name1']").val();
+    var date = $("input[name='date1']").val();
+    var sex = $("#sex1").val();
+    var phone = $("input[name='phone1']").val();
+    var week1 = $("input[name='week1-1']").val();
+    var week2 = $("input[name='week1-2']").val();
+    if (registor == '') {
+      confirm('请填写登记号');
+      return false;
+    }
+    if (name == '') {
+      confirm('请填写姓名');
+      return false;
+    }
+    if (phone == '') {
+      confirm('请填写手机号码');
+      return false;
+    }
+    if (sex == '') {
+      confirm('请选择性别');
+      return false;
+    }
+    if (date == '') {
+      confirm('请选择出生日期');
+      return false;
+    }
+    if (week1 == '' || week2 == '') {
+      confirm('请填写孕周');
+      return false;
+    }
+    ajax('/zqfz/teacher/baby/add', { 'name': name, 'gender': sex, 'mobile': phone, 'registid': registor, 'birthdate': $.dateToUnix(date), 'pregnantweeks': week1, 'pregnantdays': week2 }, function (res) {
+      if (res.result) {
+        confirm(res.message);
+      } else {
+        getPageOfMemo(1);
+        $("input[type='text']").val("");
+        $("#sex1").val("");
+      }
+    });
+  }
+  //编辑
+  function edit(id, page) {
+    $('#modal_edit_id').load('editstudent.html', function () {
+      ajax('/zqfz/teacher/baby/detail', { 'id': id }, function (res) {
+        $("input[name='registor2']").val(res.data.registid);
+        $("input[name='name2']").val(res.data.name);
+        $("input[name='date2']").val(res.data.birth_str);
+        $("#sex2").val(res.data.gender);
+        $("input[name='phone2']").val(res.data.mobile);
+        $("input[name='week2-1']").val(res.data.pregnantweeks);
+        $("input[name='week2-2']").val(res.data.pregnantdays);
+        $("input[name='classtime2']").val(res.data.time);
+      });
+      $('#datetime2').datetimepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left",
+        language: 'zh-CN',
+        minView: "month",
+        todayHighlight: true,
+        // startDate : "2013-02-14 10:00", 
+        // minuteStep : 1,
+      });
+      $("#changeStudent").on('click', changeStudent)
+      $('#modal_edit_id').modal({ backdrop: 'static' });
+    });
+    function changeStudent() {
+      var registor = $("input[name='registor2']").val();
+      var name = $("input[name='name2']").val();
+      var date = $("input[name='date2']").val();
+      var sex = $("#sex2").val();
+      var phone = $("input[name='phone2']").val();
+      var week1 = $("input[name='week2-1']").val();
+      var week2 = $("input[name='week2-2']").val();
+      var time = $("input[name='classtime2']").val();
+      ajax('/zqfz/teacher/baby/update', { "id": id, 'name': name, 'gender': sex, 'mobile': phone, 'birthdate': $.dateToUnix(date), 'pregnantweeks': week1, 'pregnantdays': week2, 'time': time }, function (res) {
+        if (res.result) {
+          confirm(res.message);
+        } else {
+          // confirm("修改成功");
+          getPageOfMemo(page);
+        }
+      });
+    }
+
+  }
+  //删除
+  function delet(id, page) {
+    if (confirm("确定删除？")) {
+      ajax('/zqfz/teacher/baby/delete', { 'id': id }, function (res) {
+        if (!res.result) {
+          if (res.data.id == id) {
+            getPageOfMemo(page);
+          }
+        } else {
+          alert(res.message);
+        }
+      });
+    }
+
+  }
+</script>
+
+</html>

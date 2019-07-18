@@ -1,0 +1,35 @@
+
+
+<body>
+    <!--  编辑 -->
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content" id="student">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="doctorInfoModalLabel">编辑课程</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="form-group">
+                        <label>课程标题</label>
+                        <input type="text" name="courseName1" class="form-control" placeholder="请填写课程名字"
+                            style="padding: 3px 9px;">
+                    </div>
+                    <div class="form-group">
+                        <label>选择上课教室</label>
+                        <input type="hidden" name="selectId1" class="form-control" value="" readonly>
+                        <select class="selectpicker show-tick form-control" icon-base="glyphicon"
+                            tick-icon="glyphicon-ok" id="selectRoom1" name="selectRoom1">
+                        </select>
+                    </div>
+                    <!-- <button type="button" class="btn btn-blue st-btn" onclick="add()">保存</button> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn right modal-btn blue" data-dismiss="modal"
+                    id="changeCourse">保存</button>
+            </div>
+        </div>
+    </div>

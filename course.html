@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>课程管理</title>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <link rel="stylesheet" type="text/css"
+    href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/head.css">
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+  <script type="text/javascript" src="js/defaults-zh_CN.js"></script>
+  <script src="common/common.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="css/doctor.css">
+  <link rel="stylesheet" type="text/css" href="css/paginator.css">
+  <link rel="stylesheet" type="text/css" href="css/drop-select.css">
+</head>
+
+<body style="background: #FFF;">
+  <nav class="navbar" role="navigation" id="topnav">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav" id="firstnav">
+        <li class="js-list">
+          <a href="index.html">首页</a>
+        </li>
+        <li class="js-list">
+          <a href="timetable.html">排课管理</a>
+        </li>
+        <li class="js-list">
+          <a href="classmanage.html">上课人员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="datastatis.html">数据统计</a>
+        </li>
+        <li class="js-list">
+          <a href="course.html">课程管理</a>
+        </li>
+        <li class="js-list">
+          <a href="student.html">学员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="doctor.html">医生管理</a>
+        </li>
+        <li class="js-list  isteacher">
+          <a href="classroom.html">教室管理</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <img id="head-img" class="top-img" src="img/tmanager.png" title="个人信息"
+            onclick="popModal('#modal_id','edit.html')"><span id="username"
+            onclick="popModal('#modal_id','edit.html')">admin</span>
+        </li>
+        <li style="padding-left:12px;">
+          <img class="top-img" src="img/info.png" onclick="popModal('#modal_id','subscribelist.html')"
+            title="预约列表"><span class="badge" id="flags">4</span>
+          <img class="top-img" src="img/shenhe.png" onclick="popModal('#modal_id','leave.html')" title="请假审核">
+          <img class="top-img" src="img/tuichu.png" onclick="quit()" title="开关">
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row-fluid" id="content">
+    <div class="row-left left">
+      <form class="form">
+        <h4>添加课程</h4>
+        <div class="form-group">
+          <label>课程名字</label>
+          <input type="text" name="courseName" class="form-control" placeholder="请填写课程名字" style="padding: 3px 9px;">
+        </div>
+        <div class="form-group">
+          <label>上课教室</label>
+          <input type="hidden" name="selectId" class="form-control" value="" readonly>
+          <select class="selectpicker show-tick form-control" icon-base="glyphicon" tick-icon="glyphicon-ok"
+            id="selectRoom" name="selectRoom">
+          </select>
+        </div>
+        <button type="button" class="btn btn-blue st-btn" onclick="add()">保存</button>
+      </form>
+    </div>
+    <div class="row-right left">
+      <table class="table" striped="true">
+        <thead>
+          <tr style="background:#F7F7F7;">
+            <td align="center">课程名字</td>
+            <td align="center">上课教室</td>
+            <td align="center" colspan="2">操作</td>
+          </tr>
+        </thead>
+        <!-- <tbody>
+            <tr>
+              <td align="center">启蒙课</td>
+              <td align="center">启蒙教室</td>
+              <td align="center"><a href="javascript:;" class="option" onclick="edit()">编辑</a></td>
+              <td align="center"><a href="javascript:;" onclick="del()" class="option del">删除</a></td>
+            </tr> -->
+        <tbody id="htmlDiv">
+        </tbody>
+      </table>
+      <div class="page-bottom">
+        <ul id="pageButton"></ul>
+        <span id="total"></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal_id" role="dialog" style="z-index: 99999;"></div>
+  <div class="modal fade" id="modal_edit_id" role="dialog" style="z-index: 99999;"></div>
+  <script src="common/change.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      var flag = $.getUrlParam('add');
+    if (flag != '' && flag ==2) {
+      $("input[name='courseName']").focus();
+    }
+    }
+    //下拉框
+    // var selectedValues = [];
+    // $("#selectRoom:selected").each(function () {
+    //   selectedValues.push($(this).val());
+    // });
+    //获取教室列表
+    function getClassRoom(pageNum) {
+      var pageSize = 2;
+      ajax('/zqfz/teacher/room/list', { 'page_num': pageNum, 'page_size': pageSize }, function (res) {
+        if (!res.result) {
+          var select = $("#selectRoom");
+          for (var i = 0; i < res.data.list.length; i++) {
+            select.append("<option value='" + res.data.list[i].id + "'>" + res.data.list[i].name + "</option>");
+          }
+          if (res.data.list.length >= pageSize) {
+            getClassRoom(++pageNum);
+          }
+          $('#selectRoom').selectpicker('val', '');
+          $('#selectRoom').selectpicker('render');
+          $('#selectRoom').selectpicker('refresh');
+        } else {
+          alert(res.message);
+        }
+      }
+      );
+    }
+    getClassRoom(1);
+    $("#selectRoom").selectpicker({
+      noneSelectedText: '请选择'
+    });
+    $('#selectRoom').on('changed.bs.select', function (e) {
+      $('input[name="selectId"]').val($('#selectRoom').selectpicker('val'));
+    });
+    // console.log(selectedValues);
+    //首页跳转样式变化
+    $('#firstnav').find('a[href="course.html"]').closest('li').addClass('active');
+    // 初始化页面
+    getPageOfMemo(1);
+    // 分页函数
+    function getPageOfMemo(page) {
+      var pageSize = 10;
+      ajax("/zqfz/teacher/course/list", {
+        "page_num": page, // 初始页
+        "page_size": pageSize //每页多少条
+      }, function (res) {
+        var data = res.data;
+        var totalPages;
+        if (data.list != null) {
+          if (data.total % pageSize == 0) {
+
+            totalPages = data.total / pageSize;
+          } else {
+            totalPages = data.total / pageSize + 1;
+          }
+          $("#total").html("每页<i>" + pageSize + "</i>条/共<i>" + data.total + "</i>条数据");
+          var htm = "";
+          $.each(data.list, function (i, item) {
+            htm += '<tr';
+            if ((i + 1) % 2 == 0) {
+              htm += ' style="background:#FCFCFC;"';
+            }
+            htm += '><td align="center">' + item.name + '</td>';
+            htm += '<td align="center">' + item.room_name + '</td>';
+            htm += '<td align="center" onclick="edit(' + item.id + ',' + page + ')"><span class="option">编辑</span></td>';
+            htm += '<td align="center" onclick="delet(' + item.id + ',' + page + ')"><span class="option del">删除</span></td>';
+            htm += '</tr>';
+
+          });
+          $('#htmlDiv').html(htm);
+          var element = $('#pageButton');
+          var options = {
+            bootstrapMajorVersion: 3,
+            currentPage: page, // 当前页数
+            numberOfPages: 5, // 显示按钮的数量
+            totalPages: totalPages, // 总页数
+            itemTexts: function (type, page, current) {
+              switch (type) {
+                case "first":
+                  return "首页";
+                case "prev":
+                  return "上一页";
+                case "next":
+                  return "下一页";
+                case "last":
+                  return "末页";
+                case "page":
+                  return page;
+              }
+            },
+            // 点击事件，用于通过Ajax来刷新整个list列表
+            onPageClicked: function (event, originalEvent, type, page) {
+              getPageOfMemo(page);
+            }
+          };
+          element.bootstrapPaginator(options);
+        }
+      }
+      );
+    };
+    //添加
+    function add() {
+      var name = $("input[name='courseName']").val();
+      var roomId = $("input[name='selectId']").val();
+      if (name == '') {
+        confirm("请输入课程名");
+        return false;
+      }
+      if (roomId == "") {
+        confirm("请选择教室");
+        return false;
+      }
+      console.log(roomId);
+      ajax('/zqfz/teacher/course/add', { 'name': name, 'room_id': roomId }, function (res) {
+        if (res.result) {
+          confirm(res.message);
+        } else {
+          getPageOfMemo(1);
+          $("input[type='text']").val("");
+          $('#selectRoom').selectpicker('val', '');
+        }
+      });
+    }
+    //编辑
+    function edit(id, page) {
+      // $("#doctorId").val(id);
+      // popModal('#modal_edit_id','editdoctor.html')
+      $('#modal_edit_id').load('editcourse.html', function () {
+        //获取需要编辑的信息
+        ajax('/zqfz/teacher/course/detail', { 'id': id }, function (res) {
+          $("input[name='courseName1']").val(res.data.name);
+          $('input[name="selectId1"]').val(res.data.room_id);
+        });
+        //获取教室列表
+        function getClassRoom1(pageNum) {
+          var pageSize = 2;
+          ajax('/zqfz/teacher/room/list', { 'page_num': pageNum, 'page_size': pageSize }, function (res) {
+            if (!res.result) {
+              var select = $("#selectRoom1");
+              for (var i = 0; i < res.data.list.length; i++) {
+                select.append("<option value='" + res.data.list[i].id + "'>" + res.data.list[i].name + "</option>");
+              }
+              if (res.data.list.length >= pageSize) {
+                getClassRoom1(++pageNum);
+              }
+              $('#selectRoom1').selectpicker('val',  $('input[name="selectId1"]').val());
+              $('#selectRoom1').selectpicker('render');
+              $('#selectRoom1').selectpicker('refresh');
+            } else {
+              alert(res.message);
+            }
+          }
+          );
+        }
+        getClassRoom1(1);
+        $("#selectRoom1").selectpicker({
+          noneSelectedText: '请选择'
+        });
+        $('#selectRoom1').on('changed.bs.select', function (e) {
+          $('input[name="selectId1"]').val($('#selectRoom1').selectpicker('val'));
+        });
+        //编辑信息的提交
+        $("#changeCourse").on('click', changeCourse)
+        //弹出框的激活
+        $('#modal_edit_id').modal({ backdrop: 'static' });
+      });
+      //编辑信息的提交
+      function changeCourse() {
+        var name = $("input[name='courseName1']").val();
+        var roomId = $("input[name='selectId1']").val();
+        ajax('/zqfz/teacher/course/update', { 'id': id, 'name': name, 'room_id': roomId }, function (res) {
+          if (res.result) {
+            confirm(res.message);
+          } else {
+            getPageOfMemo(page);
+          }
+        });
+      }
+
+    }
+    //删除
+    function delet(id, page) {
+      if (confirm("确定删除？")) {
+        ajax('/zqfz/teacher/course/delete', { 'id': id }, function (res) {
+          if (!res.result) {
+            if (res.data.id == id) {
+              getPageOfMemo(page);
+            }
+          } else {
+            alert(res.message);
+          }
+        });
+      }
+
+    }
+  </script>
+</body>
+
+</html>

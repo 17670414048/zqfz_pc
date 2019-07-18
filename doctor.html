@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>医生管理</title>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <link rel="stylesheet" type="text/css"
+    href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/head.css">
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+  <script src="common/common.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="css/doctor.css?a=1">
+  <link rel="stylesheet" type="text/css" href="css/paginator.css">
+</head>
+
+<body style="background: #FFF;">
+  <nav class="navbar" role="navigation" id="topnav">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav" id="firstnav">
+        <li class="js-list">
+          <a href="index.html">首页</a>
+        </li>
+        <li class="js-list">
+          <a href="timetable.html">排课管理</a>
+        </li>
+        <li class="js-list">
+          <a href="classmanage.html">上课人员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="datastatis.html">数据统计</a>
+        </li>
+        <li class="js-list">
+          <a href="course.html">课程管理</a>
+        </li>
+        <li class="js-list">
+          <a href="student.html">学员管理</a>
+        </li>
+        <li class="js-list isteacher">
+          <a href="doctor.html">医生管理</a>
+        </li>
+        <li class="js-list  isteacher">
+            <a href="classroom.html">教室管理</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <img id="head-img" class="top-img" src="img/tmanager.png" title="个人信息"
+            onclick="popModal('#modal_id','edit.html')"><span id="username"
+            onclick="popModal('#modal_id','edit.html')">admin</span>
+        </li>
+        <li style="padding-left:12px;">
+          <img class="top-img" src="img/info.png" onclick="popModal('#modal_id','subscribelist.html')"
+            title="预约列表"><span class="badge" id="flags">4</span>
+          <img class="top-img" src="img/shenhe.png" onclick="popModal('#modal_id','leave.html')" title="请假审核">
+          <img class="top-img" src="img/tuichu.png" onclick="quit()" title="开关">
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="containers" id="content">
+    <div class="row-left left">
+      <form class="form">
+        <h4>添加医生</h4>
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" name="doctorName" class="form-control" placeholder="请输入您的姓名">
+        </div>
+        <div class="form-group">
+          <label>身份证号</label>
+          <input type="text" name="cardId" class="form-control" placeholder="请输入您的身份证号">
+        </div>
+        <div class="form-group">
+          <label>电话</label>
+          <input type="text" name="doctorPhone" class="form-control" placeholder="请输入您的电话号码">
+        </div>
+        <button type="button" class="btn btn-blue st-btn" onclick="add();">保存</button>
+      </form>
+    </div>
+    <div class="row-right left">
+      <table class="table" striped="true">
+        <thead>
+          <tr style="background:#F7F7F7;">
+            <td align="center">账号</td>
+            <td align="center">姓名</td>
+            <td align="center">身份证号</td>
+            <td align="center">电话</td>
+            <td align="center" colspan="3">操作</td>
+          </tr>
+        </thead>
+        <tbody id="htmlDiv">
+        </tbody>
+      </table>
+      <div class="page-bottom">
+        <ul id="pageButton"></ul>
+        <span id="total"></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal_id" role="dialog" style="z-index: 99999;"></div>
+  <div class="modal fade" id="modal_edit_id" role="dialog" style="z-index: 99999;"></div>
+  <script src="common/change.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+      window.onload = function () {
+      var flag = $.getUrlParam('add');
+    if (flag != '' && flag ==2) {
+      $("input[name='doctorName']").focus();
+    }
+    }
+    $('#firstnav').find('a[href="doctor.html"]').closest('li').addClass('active');
+    // 初始化页面
+    getPageOfMemo(1);
+    // 分页函数
+    function getPageOfMemo(page) {
+
+      // 获取请求参数(input里面的时间人员参数可忽略注释)
+      //  var beginTime = $("#signDate").val();
+      //  var endTime = $("#signDate1").val();
+      //  var organId = $("#organId").val();
+      //  var personName = $("#personName").val();
+      var pageSize = 10;
+      ajax("/zqfz/teacher/teacher/list", {
+        "page_num": page, // 初始页
+        "page_size": pageSize //每页多少条
+      }, function (res) {
+        var data = res.data;
+        var totalPages;
+        if (data.list != null) {
+          if (data.total % pageSize == 0) {
+
+            totalPages = data.total / pageSize;
+          } else {
+            totalPages = data.total / pageSize + 1;
+          }
+          $("#total").html("每页<i>"+pageSize+"</i>条/共<i>" + data.total + "</i>条数据");
+          var htm = "";
+          $.each(data.list, function (i, item) {
+            htm += '<tr';
+            if ((i + 1) % 2 == 0) {
+              htm += ' style="background:#FCFCFC;"';
+            }
+            htm += '><td align="center">' + item.username + '</td>';
+            htm += '<td align="center">' + item.name + '</td>';
+            htm += '<td align="center">' + item.idnum + '</td>';
+            htm += '<td align="center">' + item.mobile + '</td>';
+            htm += '<td align="center" onclick="edit(' + item.id + ',' + page + ')"><span class="option">编辑</span></td>';
+            htm += '<td align="center" onclick="start(' + item.id + ',' + page + ',' + item.status + ')"><span class="option del">';
+            if (item.status == 0) {
+              htm += '启用';
+            } else {
+              htm += '停用';
+            }
+            htm += '</span></td>';
+            htm += '<td align="center" onclick="delet(' + item.id + ',' + page + ')"><span class="option">删除</span></td>';
+            htm += '</tr>';
+
+          });
+          $('#htmlDiv').html(htm);
+          var element = $('#pageButton');
+          var options = {
+            bootstrapMajorVersion: 3,
+            currentPage: page, // 当前页数
+            numberOfPages: 5, // 显示按钮的数量
+            totalPages: totalPages, // 总页数
+            itemTexts: function (type, page, current) {
+              switch (type) {
+                case "first":
+                  return "首页";
+                case "prev":
+                  return "上一页";
+                case "next":
+                  return "下一页";
+                case "last":
+                  return "末页";
+                case "page":
+                  return page;
+              }
+            },
+            // 点击事件，用于通过Ajax来刷新整个list列表
+            onPageClicked: function (event, originalEvent, type, page) {
+              getPageOfMemo(page);
+            }
+          };
+          element.bootstrapPaginator(options);
+        }
+      }
+      );
+    };
+    //添加医生信息
+    function add() {
+      var name = $("input[name='doctorName']").val();
+      var cardId = $("input[name='cardId']").val();
+      var phone = $("input[name='doctorPhone']").val();
+      if (name != '' && cardId != '' && phone != '') {
+        ajax('/zqfz/teacher/teacher/add', { 'name': name, 'idnum': cardId, 'mobile': phone }, function (res) {
+          if (res.result) {
+            confirm(res.message);
+          }else{
+            getPageOfMemo(1);
+            $("input[type='text']").val("");
+          }
+        });
+      } else {
+        confirm("请将姓名，身份证号，电话填写完整");
+      }
+    }
+    //编辑医生信息
+    function edit(id, page) {
+      // $("#doctorId").val(id);
+      // popModal('#modal_edit_id','editdoctor.html')
+      $('#modal_edit_id').load('editdoctor.html', function () {
+        ajax('/zqfz/teacher/teacher/info-by-id', { 'id': id }, function (res) {
+          $("input[name='name']").val(res.data.name);
+          $("input[name='cardID']").val(res.data.idnum);
+          $("input[name='phone']").val(res.data.mobile);
+          $("input[name='username']").val(res.data.username);
+        });
+        $("#changePassword").on('click', changePassword)
+        $('#modal_edit_id').modal({ backdrop: 'static' });
+      });
+
+      function changePassword() {
+        var password = $("input[name='password']").val();
+        console.log(password);
+        ajax('/zqfz/teacher/teacher/update', { "id": id, "passwd": password }, function (res) {
+          confirm("密码修改" + res.message);
+          getPageOfMemo(page);
+        });
+      }
+
+    }
+    //删除医生
+    function delet(id, page) {
+      if (confirm("确定删除？")) {
+        ajax('/zqfz/teacher/teacher/delete', { 'id': id }, function (res) {
+          if (!res.result) {
+          if (res.data.id == id) {
+            getPageOfMemo(page);
+          }
+        } else {
+          alert(res.message);
+        }
+        });
+      }
+
+    }
+    //启用或者停用医生账号
+    function start(id, page, status) {
+      if (status == 0) {
+        if (confirm("确定启用")) {
+          ajax('/zqfz/teacher/teacher/active', { 'id': id }, function (res) {
+            console.log(res.data);
+            getPageOfMemo(page);
+          });
+        }
+      } else {
+        if (confirm("确定停用")) {
+          ajax('/zqfz/teacher/teacher/deactive', { 'id': id }, function (res) {
+            console.log(res.data);
+            getPageOfMemo(page);
+          });
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

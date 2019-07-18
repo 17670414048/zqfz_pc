@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>首页</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css"
+        href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/head.css">
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="js/moment.min.js" type="text/javascript"></script>
+    <script type="text/javascript"
+        src="js/bootstrap.min.js"></script>
+    <script src="common/common.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body style="background: #F7F7F7;">
+    <nav class="navbar" role="navigation" id="topnav">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav" id="firstnav">
+                <li class="js-list">
+                    <a href="index.html">首页</a>
+                </li>
+                <li class="js-list">
+                    <a href="timetable.html">排课管理</a>
+                </li>
+                <li class="js-list">
+                    <a href="classmanage.html">上课人员管理</a>
+                </li>
+                <li class="js-list isteacher">
+                    <a href="datastatis.html">数据统计</a>
+                </li>
+                <li class="js-list">
+                    <a href="course.html">课程管理</a>
+                </li>
+                <li class="js-list">
+                    <a href="student.html">学员管理</a>
+                </li>
+                <li class="js-list isteacher">
+                    <a href="doctor.html">医生管理</a>
+                </li>
+                <li class="js-list isteacher">
+                    <a href="classroom.html">教室管理</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <img id="head-img" class="top-img" src="img/tmanager.png" title="个人信息"
+                        onclick="popModal('#modal_id','edit.html')"><span id="username"
+                        onclick="popModal('#modal_id','edit.html')">admin</span>
+                </li>
+                <li style="padding-left:12px;">
+                    <img class="top-img" src="img/info.png" onclick="popModal('#modal_id','subscribelist.html')"
+                        title="预约列表"><span class="badge" id="flags">4</span>
+                    <img class="top-img" src="img/shenhe.png" onclick="popModal('#modal_id','leave.html')" title="请假审核">
+                    <img class="top-img" src="img/tuichu.png" onclick="quit()" title="开关">
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="containers" id="content">
+        <li class="index-list">
+            <h4>项目介绍</h4>
+            <ul>
+                <li>
+                    <h5>排课管理</h5>
+                    <p>
+                        1、通过切换教室，可以查看各个教室的课程表；<br />
+                        2、可以创建、修改和删除课程；<br />
+                        3、调整日期，可以看到已上的课程记录，以及未来90天内已创建的课程记录。</p>
+                    <p><a href="timetable.html" class="a-href">查看课表</a><a href="timetable.html?add=2"
+                            class="a-href">创建课程</a></p>
+                </li>
+                <li>
+                    <h5>上课学员管理</h5>
+                    <p>
+                        1、右上角切换医生姓名，可以查看不同医生的课程表；<br />
+                        2、单击课程，左侧可以查看课程详情；<br />
+                        3、已上课程可以查看具体上课人员，对未上的课程，可以通过搜索登记号修改上课人员。
+                    </p>
+                    <p><a href="classmanage.html" class="a-href">查看课表</a></p>
+                </li>
+                <li class="isteacher">
+                    <h5>数据统计</h5>
+                    <p>
+                        1、通过切换教室，可以查看各个教室的课程表；<br />
+                        2、可以创建、修改和删除课程；<br />
+                        3、调整日期，可以看到已上的课程记录，以及未来90天内已创建的课程记录。</p>
+                    <p><a href="datastatis.html" class="a-href">查看列表</a></p>
+                </li>
+                <li>
+                    <h5>课程管理</h5>
+                    <p>
+                        1、可以查看已有课程名，及其对应的教室；<br />
+                        2、可以添加、修改和删除课程名。</p>
+                    <p><a href="course.html" class="a-href">查看已有课程</a>
+                        <a href="course.html?add=2" class="a-href">添加课程</a></p>
+                </li>
+                <li>
+                    <h5>学员管理</h5>
+                    <p>
+                        1、可以查看学员列表；<br />
+                        2、可以添加、修改和删除学员。
+                    </p>
+                    <p><a href="student.html" class="a-href">查看学员列表</a><a href="student.html?add=2"
+                            class="a-href">添加学员</a>
+                    </p>
+                </li>
+                <li class="isteacher">
+                    <h5>医生管理</h5>
+                    <p>
+                        1、可以查看医生列表；<br />
+                        2、可以添加、删除医生。
+                    </p>
+                    <p><a href="doctor.html" class="a-href">查看医生列表</a><a href="doctor.html?add=2"
+                        class="a-href">添加医生</a></p>
+                </li>
+                <li class="isteacher">
+                    <h5>教室管理</h5>
+                    <p>
+
+                        1、可以查看已有教室；<br />
+                        2、可以创建、修改和删除教室。
+
+                    </p>
+                    <p><a href="classroom.html" class="a-href">查看已有教室</a><a href="classroom.html?add=2"
+                            class="a-href">创建教室</a>
+                    </p>
+                </li>
+            </ul>
+        </li>
+
+    </div>
+    <!--  编辑 -->
+    <div class="modal fade" id="modal_id" role="dialog" style="z-index: 99999;" tabindex="-1"></div>
+    <script src="common/change.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#firstnav').find('a[href="index.html"]').closest('li').addClass('active');
+    </script>
+</body>
+<script type="text/javascript" charset="utf-8">
+
+    $(window).scroll(function () {
+        navLeft = -$(window).scrollLeft();
+        $("#topnav").css("left", navLeft);
+    })
+    //ie阻止冒泡事件的兼容写法
+    function stopPropagation(e) {
+        e = window.event || e;
+        if (document.all) {  //只有ie识别
+            e.cancelBubble = true;
+        } else {
+            e.stopPropagation();
+        }
+    }
+    //IE8，解决"console"未定义错误
+    window.console = window.console || (function () {
+        var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile
+            = c.clear = c.exception = c.trace = c.assert = function () { };
+        return c;
+    })();
+</script>
+
+</html>

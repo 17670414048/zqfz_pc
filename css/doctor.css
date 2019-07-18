@@ -1,0 +1,81 @@
+
+
+#content .row-left {
+	width: 20%;
+	height: auto;
+	background: rgba(242, 242, 242, 1);
+	border: 1px solid rgba(219, 219, 219, 1);
+}
+
+#content .row-left .form {
+	margin: 13px 12px 220px;
+	padding: 13px;
+	background: #fff;
+}
+
+#content .row-left .form .st-btn {
+	width: 45%;
+	margin: 50px 50%;
+	transform: translate(-50%, 0);
+}
+
+#content .row-left .form h4 {
+	font-size: 16px;
+	font-weight: 400;
+	color: rgba(51, 51, 51, 1);
+	margin-bottom: 25px;
+}
+
+#content .row-left .form label {
+	font-size: 14px;
+	font-weight: 400;
+	color: rgba(119, 119, 119, 1);
+	margin-bottom: 10px;
+}
+
+#content .row-left .form .form-control {
+	padding: 3px 9px;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+#content .row-left .form .form-control.dropdown {
+	padding: 0;
+}
+
+#content .row-left .form .input-group .input-group-addon {
+	padding: 3px 9px;
+}
+
+#content .row-right {
+	width: 76%;
+	height: auto;
+	margin-left: 20px;
+}
+
+#content .row-right .table {
+	border: 1px solid #eee;
+}
+
+#content .row-right .table .tr-background {
+	background: #FCFCFC;
+}
+
+#content .row-right .table .option {
+	font-size: 15px;
+	font-weight: 400;
+	color: rgba(18, 119, 220, 1);
+}
+
+#content .row-right .table .option.del {
+	color: rgba(255, 30, 30, 1);
+}
+
+.btn-blue {
+	background: #339AFF;
+	color: #fff;
+	border-color: #339AFF;
+}
+.back-gray{
+	background: #FCFCFC;
+}

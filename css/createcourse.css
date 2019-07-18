@@ -1,0 +1,122 @@
+    .form-group .meunid-input {
+        position: relative;
+    }
+
+    .form-group .meunid-input input {
+        /* width:240px; */
+        height: 36px;
+        line-height: 36px;
+        border: 1px solid #f7f7f7;
+        border-radius: 4px;
+        padding: 0 12px;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .form-group .meunid-input input[type=text]::-ms-clear, .form-group .meunid-input input[type=text]::-o-clear {
+        display: none;
+    }
+
+    .form-group .meunid-input .input-group {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        background: rgba(247, 247, 247, 1);
+        box-shadow: 0px 2px 4px 0px rgba(21, 69, 118, 0.15);
+        border-radius: 4px;
+        height: auto;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .s-list {
+        position: relative;
+    }
+
+    .s-list ul {
+        width: 100%;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .s-list ul li {
+        width: 49%;
+        display: inline-block;
+        padding: 0px 10px;
+        border-bottom: 1px solid #f7f7f7;
+        height: 34px;
+        line-height: 34px;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .s-list ul li.li-left {
+        margin-right: 1%;
+    }
+
+    .s-list ul li span {
+        display: none;
+        cursor: pointer;
+    }
+
+    .s-list ul li span.del {
+        height: 15px;
+        line-height: 14px;
+        background: rgb(105, 165, 255);
+        color: rgb(255, 255, 255);
+        border-radius: 101px;
+        width: 15px;
+        margin-top: 10px;
+        padding: 0px 1px;
+    }
+
+    .s-list ul li:hover {
+        color: #1277DC;
+    }
+    .s-list ul li:hover span {
+        display:inline-block;
+    }
+    .timeduan, .repeate {
+        display: inline-block;
+        margin-right: 30px;
+        position: relative;
+        cursor: pointer;
+    }
+    .timeduan .timedate{
+       display: inline-block;
+       height: 30px;
+       line-height: 30px;
+    }
+    .timeduan .timedate span{
+font-size:16px;
+color:rgba(102,102,102,1);
+    }
+    .timeduan .timedate span:hover{
+        color: #1277DC;
+    }
+    .s-list ul li span {
+        display: none;
+    }
+    .s-list ul li span.blues {
+        color: #1277DC;
+    }
+
+    .baby-list {
+        margin-bottom: 0;
+        width: 50%;
+        float: left;
+        border: 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .baby-list span{
+        display: none;
+        font-size: 18px;
+        width: 10px;
+        height: 10px;
+    }
+    .baby-list:hover{
+        color: #1277DC;
+    }
+     .baby-list:hover span{
+        display:block;
+    } 
